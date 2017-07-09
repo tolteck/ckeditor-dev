@@ -234,11 +234,16 @@
 		var sel = document.getSelection(),
 			range = document.createRange();
 
+		// NOTE: try-catched because it causes bugs.
+		try {
+
 		range.setStart( bm[ 0 ].node, bm[ 0 ].offset );
 		range.collapse( true );
 		sel.removeAllRanges();
 		sel.addRange( range );
 		sel.extend( bm[ 1 ].node, bm[ 1 ].offset );
+
+		} catch ( e ) {}
 	}
 
 	// Creates cke_hidden_sel container and puts real selection there.
