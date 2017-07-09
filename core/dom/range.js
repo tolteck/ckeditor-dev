@@ -1890,6 +1890,10 @@ CKEDITOR.dom.range = function( root ) {
 		 * of `startNode`.
 		 */
 		setStart: function( startNode, startOffset ) {
+			// NOTE: short-circuited because it causes bugs.
+			if (!startNode)
+				return;
+
 			// W3C requires a check for the new position. If it is after the end
 			// boundary, the range should be collapsed to the new start. It seams
 			// we will not need this check for our use of this class so we can
@@ -1919,6 +1923,10 @@ CKEDITOR.dom.range = function( root ) {
 		 * of `endNode`.
 		 */
 		setEnd: function( endNode, endOffset ) {
+			// NOTE: short-circuited because it causes bugs.
+			if (!endNode)
+				return;
+
 			// W3C requires a check for the new position. If it is before the start
 			// boundary, the range should be collapsed to the new end. It seams we
 			// will not need this check for our use of this class so we can ignore
