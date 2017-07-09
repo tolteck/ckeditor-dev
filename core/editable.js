@@ -1589,7 +1589,7 @@
 			}
 
 			// Check range spans in non-editable.
-			if ( range.checkReadOnly() )
+			if ( !range || range.checkReadOnly() )
 				return;
 
 			// RANGE PREPARATIONS
