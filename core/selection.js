@@ -1930,6 +1930,9 @@
 						}
 					}
 
+					// NOTE: try-catched because it causes bugs.
+					try {
+
 					nativeRange.setStart( range.startContainer.$, range.startOffset );
 
 					try {
@@ -1948,6 +1951,8 @@
 
 					// Select the range.
 					sel.addRange( nativeRange );
+
+					} catch ( e ) {}
 				}
 			}
 
