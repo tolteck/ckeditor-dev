@@ -7,17 +7,18 @@
 
 var CKBUILDER_CONFIG = {
 	skin: 'moono-lisa',
+	preset: 'tolteck',
 	ignore: [
-		'bender.js',
 		'.bender',
+		'bender.js',
 		'bender-err.log',
 		'bender-out.log',
 		'dev',
 		'docs',
 		'.DS_Store',
 		'.editorconfig',
-		'.gitignore',
 		'.gitattributes',
+		'.gitignore',
 		'gruntfile.js',
 		'.idea',
 		'.jscsrc',
@@ -56,9 +57,10 @@ var CKBUILDER_CONFIG = {
 		htmlwriter: 1,
 		iframe: 1,
 		image: 1,
-		indentlist: 1,
 		indentblock: 1,
+		indentlist: 1,
 		justify: 1,
+		language: 1,
 		link: 1,
 		list: 1,
 		liststyle: 1,
@@ -87,5 +89,9 @@ var CKBUILDER_CONFIG = {
 		toolbar: 1,
 		undo: 1,
 		wysiwygarea: 1
+	},
+	languages : {
+		'en': 1,
+		'fr': 1,
 	}
 };
