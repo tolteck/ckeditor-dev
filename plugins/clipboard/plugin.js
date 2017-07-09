@@ -1113,15 +1113,17 @@
 		}
 
 		function setToolbarStates() {
-			if ( editor.mode != 'wysiwyg' )
-				return;
+			// NOTE: Commented out because it causes bugs.
 
-			var pasteState = stateFromNamedCommand( 'paste' );
+			//if ( editor.mode != 'wysiwyg' )
+			//	return;
 
-			editor.getCommand( 'cut' ).setState( stateFromNamedCommand( 'cut' ) );
-			editor.getCommand( 'copy' ).setState( stateFromNamedCommand( 'copy' ) );
-			editor.getCommand( 'paste' ).setState( pasteState );
-			editor.fire( 'pasteState', pasteState );
+			//var pasteState = stateFromNamedCommand( 'paste' );
+
+			//editor.getCommand( 'cut' ).setState( stateFromNamedCommand( 'cut' ) );
+			//editor.getCommand( 'copy' ).setState( stateFromNamedCommand( 'copy' ) );
+			//editor.getCommand( 'paste' ).setState( pasteState );
+			//editor.fire( 'pasteState', pasteState );
 		}
 
 		function stateFromNamedCommand( command ) {
