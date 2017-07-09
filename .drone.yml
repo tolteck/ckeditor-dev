@@ -1,0 +1,37 @@
+---
+
+pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - .git
+      - dev/builder/ckbuilder
+    volumes:  # mount the cache volume, needs "Trusted"
+      - /tmp/cache:/cache
+
+  clone:
+    image: plugins/git
+    tags: true
+
+  tests:
+    image: openjdk
+    commands:
+      - dev/builder/build.sh
+
+  github_release:
+    image: plugins/github-release
+    files: dev/builder/release/ckeditor_${DRONE_TAG}.tar.gz
+    checksum:
+      - sha256
+    when:
+      event: tag
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - .git
+      - dev/builder/ckbuilder
+    volumes:  # mount the cache volume, needs "Trusted"
+      - /tmp/cache:/cache
