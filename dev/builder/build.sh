@@ -71,7 +71,41 @@ then
 	VERSION=$TAG
 fi
 
-java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release $JAVA_ARGS --version="$VERSION" --revision="$REVISION" --overwrite
+java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release $JAVA_ARGS --version="$VERSION" --revision="$REVISION" --overwrite --no-zip --no-tar
+
+# Create the package.json file
+cat >release/ckeditor/package.json <<EOM
+{
+  "name": "ckeditor",
+  "version": "$VERSION",
+  "description": "JavaScript WYSIWYG web text editor.",
+  "main": "ckeditor.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tolteck/ckeditor-dev.git"
+  },
+  "keywords": [
+    "ckeditor",
+    "fckeditor",
+    "editor",
+    "wysiwyg",
+    "html",
+    "richtext",
+    "text",
+    "javascript"
+  ],
+  "author": "CKSource (http://cksource.com/)",
+  "license": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+  "bugs": {
+    "url": "http://dev.ckeditor.com"
+  },
+  "homepage": "http://ckeditor.com"
+}
+EOM
+
+echo ""
+echo "Creating ckeditor_$VERSION.tar.gz..."
+cd release; tar -czf ckeditor_$VERSION.tar.gz ckeditor; cd ..
 
 # Copy and build tests.
 if [[ "$ARGS" == *\ \-t\ * ]]; then
