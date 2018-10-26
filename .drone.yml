@@ -10,10 +10,6 @@ pipeline:
     volumes:  # mount the cache volume, needs "Trusted"
       - /tmp/cache:/cache
 
-  clone:
-    image: plugins/git
-    tags: true
-
   tests:
     image: openjdk
     commands:
@@ -22,6 +18,7 @@ pipeline:
   github_release:
     image: plugins/github-release
     files: dev/builder/release/ckeditor_${DRONE_TAG}.tar.gz
+    secrets: [github_token]
     checksum:
       - sha256
     when:
