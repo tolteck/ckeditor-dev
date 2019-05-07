@@ -61,14 +61,20 @@ VERSION="4.6.0 DEV"
 REVISION=$(git rev-parse --verify --short HEAD)
 SEMVER_REGEX="^([0-9]+)\.([0-9]+)\.([0-9]+)(\-[0-9A-Za-z-]+)?(\.?[0-9A-Za-z-]+)?$"
 
-# Get version number from tag (if available and follows semantic versioning principles).
-# Use 2>/dev/null to block "fatal: no tag exactly matches", true is needed because of "set -e".
-TAG=$(git describe --tags --exact-match 2>/dev/null) || true
-# "Git Bash" does not support regular expressions.
-if echo $TAG | grep -E "$SEMVER_REGEX" > /dev/null
+if [ -z "${DRONE_TAG}" ];
 then
-	echo "Setting version to $TAG"
-	VERSION=$TAG
+	# Get version number from tag (if available and follows semantic versioning principles).
+	# Use 2>/dev/null to block "fatal: no tag exactly matches", true is needed because of "set -e".
+	TAG=$(git describe --tags --exact-match 2>/dev/null) || true
+	# "Git Bash" does not support regular expressions.
+	if echo $TAG | grep -E "$SEMVER_REGEX" > /dev/null
+	then
+		echo "Setting version to $TAG"
+		VERSION=$TAG
+	fi
+else
+	echo "Setting version from DRONE_TAG to ${DRONE_TAG}"
+	VERSION=${DRONE_TAG}
 fi
 
 java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release $JAVA_ARGS --version="$VERSION" --revision="$REVISION" --overwrite --no-zip --no-tar
