@@ -13,7 +13,7 @@ pipeline:
   tests:
     image: openjdk
     commands:
-      - yum -y install git wget
+      - yum -y install git
       - dev/builder/build.sh
 
   github_release:
