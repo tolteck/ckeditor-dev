@@ -91,6 +91,7 @@ var CKBUILDER_CONFIG = {
 		wysiwygarea: 1
 	},
 	languages : {
+		'de': 1,
 		'en': 1,
 		'es': 1,
 		'fr': 1,
