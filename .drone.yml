@@ -1,5 +1,10 @@
 ---
 
+clone:
+  git:
+    image: plugins/git
+    tags: true
+
 pipeline:
   restore-cache:
     image: drillster/drone-volume-cache
