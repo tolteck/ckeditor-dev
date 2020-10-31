@@ -16,7 +16,7 @@ pipeline:
       - /tmp/cache:/cache
 
   tests:
-    image: openjdk
+    image: openjdk:12
     commands:
       - yum -y install git
       - dev/builder/build.sh
