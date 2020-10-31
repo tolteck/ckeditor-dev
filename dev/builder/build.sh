@@ -105,7 +105,7 @@ EOM
 
 echo ""
 echo "Creating ckeditor_$VERSION.tar.gz..."
-cd release; tar -czf ckeditor_$VERSION.tar.gz ckeditor; cd ..
+cd release; tar -czf "ckeditor_$VERSION.tar.gz" ckeditor; cd ..
 
 # Copy and build tests.
 if [[ "$ARGS" == *\ \-t\ * ]]; then
