@@ -10,7 +10,6 @@ pipeline:
     image: drillster/drone-volume-cache
     restore: true
     mount:
-      - .git
       - dev/builder/ckbuilder
     volumes:  # mount the cache volume, needs "Trusted"
       - /tmp/cache:/cache
@@ -34,7 +33,6 @@ pipeline:
     image: drillster/drone-volume-cache
     rebuild: true
     mount:
-      - .git
       - dev/builder/ckbuilder
     volumes:  # mount the cache volume, needs "Trusted"
       - /tmp/cache:/cache
