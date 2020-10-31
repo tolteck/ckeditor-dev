@@ -54,8 +54,8 @@ CKEDITOR.skin.name = 'moono-lisa';
 //
 // The available browser specific files must be set separately for editor.css
 // and dialog.css.
-CKEDITOR.skin.ua_editor = 'ie,iequirks,ie8,gecko';
-CKEDITOR.skin.ua_dialog = 'ie,iequirks,ie8';
+CKEDITOR.skin.ua_editor = '';
+CKEDITOR.skin.ua_dialog = '';
 
 // 3. Define the "Chameleon" feature
 // -----------------------------------
