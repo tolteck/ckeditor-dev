@@ -11,6 +11,7 @@ module.exports = function( grunt ) {
 		// Automatically loaded from .gitignore. Add more if necessary.
 
 		'lang/**',
+		'vendor/**',
 		'plugins/*/lib/**',
 		'plugins/**/lang/**',
 		'plugins/uicolor/yui/**',

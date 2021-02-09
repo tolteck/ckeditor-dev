@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 CKEDITOR.plugins.setLang( 'image2', 'da', {
 	alt: 'Alternativ tekst',
@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'image2', 'da', {
 	title: 'Egenskaber for billede',
 	uploadTab: 'Upload',
 	urlMissing: 'Kilde på billed-URL mangler',
-	altMissing: 'Alternative text is missing.' // MISSING
+	altMissing: 'Alternativ-tekst mangler.'
 } );

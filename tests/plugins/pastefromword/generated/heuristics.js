@@ -1,7 +1,7 @@
 /* bender-tags: clipboard,pastefromword */
-/* bender-ckeditor-plugins: pastefromword,ajax */
-/* bender-include: ../../../plugins/clipboard/_helpers/pasting.js,  ../../../../plugins/pastefromword/filter/default.js, _helpers/pfwTools.js */
-/* global pfwTools */
+/* bender-ckeditor-plugins: pastetools, pastefromword,ajax */
+/* bender-include: ../../../plugins/clipboard/_helpers/pasting.js, ../../pastetools/_helpers/ptTools.js, _helpers/pfwTools.js */
+/* global pfwTools, ptTools */
 
 ( function() {
 	'use strict';
@@ -10,7 +10,7 @@
 		config: pfwTools.defaultConfig
 	};
 
-	bender.test( {
+	var tests = {
 		setUp: function(  ) {
 			// Map PFW namespaces, so it's more convenient to use them.
 			this.pastefromword = CKEDITOR.plugins.pastefromword;
@@ -28,10 +28,8 @@
 			arrayAssert.itemsAreEqual( [ 0, 48, 0, 96, 0, -96, 50 ], ret.diffs );
 			arrayAssert.itemsAreEqual( [ 1, 2, 2, 4, 4, 2, 3 ], ret.levels );
 
-			var writer = new CKEDITOR.htmlParser.basicWriter();
-			paragraphs[ 0 ].parent.writeHtml( writer );
-
-			assert.beautified.html( CKEDITOR.document.getById( 'tc1expected' ).getHtml(), writer.getHtml() );
+			assert.beautified.html( CKEDITOR.document.getById( 'tc1expected' ).getHtml(),
+				this.getFragmentsOutputHtml( paragraphs[ 0 ].parent ) );
 		},
 
 		'test assignListLevels zero indent': function() {
@@ -70,12 +68,36 @@
 			assert.areSame( 10, this.heuristics.guessIndentationStep( [ 20, 20, 10 ] ), 'tc5' );
 		},
 
+		'test cleanupEdgeListItem': function() {
+			var paragraph = this.getParserElementsFrom( 'tc3' )[ 0 ],
+				html;
+
+			this.heuristics.cleanupEdgeListItem( paragraph );
+
+			html = this.getFragmentsOutputHtml( paragraph );
+
+			assert.beautified.html( CKEDITOR.document.getById( 'tc3expected' ).getHtml(), html, 'Paragraph\'s html' );
+		},
+
 		// Creates CKEDITOR.htmlParser.fragment based on given element, and returns it's children.'
 		//
 		// @param {string} id
 		// @returns {CKEDITOR.htmlParser.node/null}
 		getParserElementsFrom: function( id ) {
 			return CKEDITOR.htmlParser.fragment.fromHtml( CKEDITOR.document.getById( id ).getHtml() ).children;
+		},
+
+		getFragmentsOutputHtml: function( fragment ) {
+			var writer = new CKEDITOR.htmlParser.basicWriter();
+			fragment.writeHtml( writer );
+			return writer.getHtml();
 		}
-	} );
+	};
+
+	ptTools.ignoreTestsOnMobiles( tests );
+
+	ptTools.testWithFilters( tests, [
+		CKEDITOR.getUrl( CKEDITOR.plugins.getPath( 'pastetools' ) + 'filter/common.js' ),
+		CKEDITOR.getUrl( CKEDITOR.plugins.getPath( 'pastefromword' ) + 'filter/default.js' )
+	] );
 } )();

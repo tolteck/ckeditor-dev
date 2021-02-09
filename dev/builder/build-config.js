@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 /* exported CKBUILDER_CONFIG */
@@ -9,16 +9,19 @@ var CKBUILDER_CONFIG = {
 	skin: 'moono-lisa',
 	preset: 'tolteck',
 	ignore: [
-		'.bender',
 		'bender.js',
+		'bender.ci.js',
+		'.bender',
 		'bender-err.log',
 		'bender-out.log',
+		'.travis.yml',
 		'dev',
 		'docs',
 		'.DS_Store',
 		'.editorconfig',
-		'.gitattributes',
 		'.gitignore',
+		'.gitattributes',
+		'.github',
 		'gruntfile.js',
 		'.idea',
 		'.jscsrc',
@@ -26,6 +29,7 @@ var CKBUILDER_CONFIG = {
 		'.jshintrc',
 		'less',
 		'.mailmap',
+		'.nvmrc',
 		'node_modules',
 		'package.json',
 		'README.md',
@@ -40,6 +44,7 @@ var CKBUILDER_CONFIG = {
 		clipboard: 1,
 		colorbutton: 1,
 		colordialog: 1,
+		copyformatting: 1,
 		contextmenu: 1,
 		dialogadvtab: 1,
 		div: 1,
@@ -57,8 +62,8 @@ var CKBUILDER_CONFIG = {
 		htmlwriter: 1,
 		iframe: 1,
 		image: 1,
-		indentblock: 1,
 		indentlist: 1,
+		indentblock: 1,
 		justify: 1,
 		language: 1,
 		link: 1,
@@ -68,8 +73,10 @@ var CKBUILDER_CONFIG = {
 		maximize: 1,
 		newpage: 1,
 		pagebreak: 1,
+		pastefromlibreoffice: 1,
 		pastefromword: 1,
 		pastetext: 1,
+		editorplaceholder: 1,
 		preview: 1,
 		print: 1,
 		removeformat: 1,
@@ -84,10 +91,12 @@ var CKBUILDER_CONFIG = {
 		stylescombo: 1,
 		tab: 1,
 		table: 1,
+		tableselection: 1,
 		tabletools: 1,
 		templates: 1,
 		toolbar: 1,
 		undo: 1,
+		uploadimage: 1,
 		wysiwygarea: 1
 	},
 	languages : {

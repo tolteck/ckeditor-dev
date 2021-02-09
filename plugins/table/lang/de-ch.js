@@ -1,6 +1,6 @@
 /*
-Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 CKEDITOR.plugins.setLang( 'table', 'de-ch', {
 	border: 'Rahmengrösse',
@@ -50,6 +50,7 @@ CKEDITOR.plugins.setLang( 'table', 'de-ch', {
 	headersColumn: 'Erste Spalte',
 	headersNone: 'Keine',
 	headersRow: 'Erste Zeile',
+	heightUnit: 'height unit', // MISSING
 	invalidBorder: 'Die Rahmenbreite muss eine Zahl sein.',
 	invalidCellPadding: 'Der Zellenabstand innen muss eine positive Zahl sein.',
 	invalidCellSpacing: 'Der Zellenabstand aussen muss eine positive Zahl sein.',

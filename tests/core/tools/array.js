@@ -1,4 +1,4 @@
-/* bender-tags: editor,unit */
+/* bender-tags: editor */
 
 ( function() {
 	'use strict';
@@ -34,8 +34,8 @@
 
 		'test array.filter context and arguments': function() {
 			var context = {
-					foo: 'bar'
-				};
+				foo: 'bar'
+			};
 
 			this.array.filter( [ 'a', 'b', 'c' ], function( elem, index ) {
 				assert.isString( elem, 'Element type' );
@@ -59,8 +59,8 @@
 
 		'test array.forEach context': function() {
 			var context = {
-					foo: 'bar'
-				};
+				foo: 'bar'
+			};
 
 			this.array.forEach( [ 1, 1 ], function() {
 				assert.areSame( context, this, 'Context object' );
@@ -127,6 +127,121 @@
 
 				return acc;
 			}, [ 1 ] ) );
+		},
+
+		// (#1073)
+		'test array.every array': function() {
+			var testArray = [ 1234 ],
+				testThis = {};
+
+			assert.isTrue( this.array.every( [], function() {} ) );
+
+			assert.isTrue( this.array.every( [ 11, 12, 34, 35, 546546 ], function( item ) {
+				return item > 10;
+			} ) );
+			assert.isFalse( this.array.every( [ 10, 12, 34, 35, 546546 ], function( item ) {
+				return item > 10;
+			} ) );
+
+			assert.isTrue( this.array.every( [ 'a', 'asdas', 'asdas', 'adsadas' ], function( item ) {
+				return item.charAt( 0 ) === 'a';
+			} ) );
+			assert.isFalse( this.array.every( [ 'a', 'asdas', 'asdas', 'cdsadas' ], function( item ) {
+				return item.charAt( 0 ) === 'a';
+			} ) );
+
+			this.array.every( testArray, function( item, index, array ) {
+				assert.areSame( 1234, item );
+				assert.areSame( 0, index );
+				assert.areSame( testArray, array );
+				assert.areSame( testThis, this );
+			}, testThis );
+		},
+
+		// (#2700)
+		'test array.find no match': function() {
+			var arr = [ 'foo', 'bar', 'baz', 1, 2, 3 ],
+				results = [],
+				ret = this.array.find( arr, function( item, index ) {
+					results.push( item );
+
+					arrayAssert.indexOf( item, arr, index, 'Index argument should match item index' );
+
+					return false;
+				}, this );
+
+			assert.isUndefined( ret, 'Returned value' );
+
+			arrayAssert.itemsAreSame( arr, results, 'Each array item should be iterated' );
+		},
+
+		// (#2700)
+		'test array.find match': function() {
+			var arr = [ 'foo', 'bar', 'baz', 1, 2, 3 ],
+				ret = this.array.find( arr, function( item, index, array ) {
+					assert.areSame( arr, array, 'Array argument should match given array' );
+
+					assert.areSame( window, this, 'thisArg should match given object' );
+
+					return item === 'baz';
+				}, window );
+
+			assert.areSame( 'baz', ret );
+		},
+
+		// (3154)
+		'test array.some method': function() {
+			var testArray = [ 1234 ],
+				testThis = {};
+
+			assert.isFalse( this.array.some( [], function() {} ) );
+
+			assert.isTrue( this.array.some( [ 11, 12, 34, 35, 546546 ], function( item ) {
+				return item > 10;
+			} ) );
+
+			assert.isTrue( this.array.some( [ 10, 12, 1, 4, 8 ], function( item ) {
+				return item > 10;
+			} ) );
+
+			assert.isFalse( this.array.some( [ 1, 4, 5, 6, 10 ], function( item ) {
+				return item > 10;
+			} ) );
+
+			this.array.some( testArray, function( item, index, array ) {
+				assert.areSame( 1234, item );
+				assert.areSame( 0, index );
+				assert.areSame( testArray, array );
+				assert.areSame( testThis, this );
+			}, testThis );
+		},
+
+		'test array.zip method': function() {
+			var array1 = [ 'foo', 'bar', 'baz' ],
+				array2 = [ 1, 2, 3 ],
+				expected = [ [ 'foo', 1 ], [ 'bar', 2 ], [ 'baz', 3 ] ];
+
+			arrayAssert.itemsAreEquivalent( expected, this.array.zip( array1, array2 ), function( arr1, arr2 ) {
+				return arr1[ 0 ] === arr2[ 0 ] && arr1[ 1 ]  === arr2[ 1 ];
+			} );
+		},
+
+		// (#1134)
+		'test array.unique method': function() {
+			var obj1 = {},
+				obj2 = {},
+				testArray = [];
+
+			arrayAssert.itemsAreSame( [ 1, 2, 3, 4 ], this.array.unique( [ 1, 2, 3, 4 ] ),
+				'array of primitives without duplicates' );
+			arrayAssert.itemsAreSame( [ 1, 2, 3, 4 ], this.array.unique( [ 1, 2, 3, 4, 4, 3 ] ),
+				'array of primitives with duplicates' );
+			arrayAssert.itemsAreSame( [ obj1, obj2 ], this.array.unique( [ obj1, obj2 ] ),
+				'array of objects without duplicates' );
+			arrayAssert.itemsAreSame( [ obj1, obj2 ], this.array.unique( [ obj1, obj2, obj2, obj1 ] ),
+				'array of objects without duplicates' );
+
+			assert.areNotSame( testArray, this.array.unique( testArray ), 'output' );
 		}
 	} );
 

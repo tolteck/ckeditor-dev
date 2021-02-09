@@ -1,11 +1,13 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 CKEDITOR.plugins.setLang( 'uicolor', 'da', {
 	title: 'Brugerflade på farvevælger',
-	preview: 'Vis liveeksempel',
-	config: 'Indsæt denne streng i din config.js fil',
-	predefined: 'Prædefinerede farveskemaer'
+	options: 'Farvevalg',
+	highlight: 'Fremhæv',
+	selected: 'Valgt farve',
+	predefined: 'Prædefinerede farveskemaer',
+	config: 'Indsæt denne streng i din config.js fil'
 } );
